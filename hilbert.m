@@ -1,0 +1,32 @@
+[B_1,header_1]=RPread_WL('1.b8');
+[B_2,header_2]=RPread_WL('2.b8');
+[B_3,header_3]=RPread_WL('3.b8');
+[B_4,header_4]=RPread_WL('4.b8');
+resol=45/356;
+y_B=[0 resol*356];
+x_B=[0 resol*488];
+figure, imagesc(x_B,y_B,B_1(:,:,70)), colormap(gray), title('Fig 1'), xlabel('(mm)'), ylabel('(mm)'),colorbar, axis equal;
+figure, imagesc(x_B,y_B,B_2(:,:,70)), colormap(gray), title('Fig 2'), xlabel('(mm)'), ylabel('(mm)'),colorbar, axis equal;
+figure, imagesc(x_B,y_B,B_3(:,:,70)), colormap(gray), title('Fig 3'), xlabel('(mm)'), ylabel('(mm)'),colorbar, axis equal;
+figure, imagesc(x_B,y_B,B_4(:,:,70)), colormap(gray), title('Fig 4'), xlabel('(mm)'), ylabel('(mm)'),colorbar, axis equal;
+
+
+[Im,header_Im]=RPread_WL('group5.rf');
+[Bmode,header_B]=RPread_WL('group5.b8');
+Im_hilbert_line=hilbert(Im(:,100,87));
+figure, plot(abs(Im_hilbert_line),'r');
+hold on;
+plot(Im(:,100,87),'b');
+hold off;
+xlim([500 1000]);
+resol=45/356;
+y_B=[0 resol*356];
+x_B=[0 resol*488];
+figure, imagesc(x_B,y_B,Bmode(:,:,87)), colormap(gray), title('Bmode'), xlabel('(mm)'), ylabel('(mm)'),colorbar, axis equal;
+figure, imagesc(Im(:,:,87)), colormap(gray), title('raw rf'), colorbar;
+Im_hilbert=hilbert(Im(:,:,87));
+figure, imagesc(abs(Im_hilbert)), colormap(gray), title('Hilbert'), colorbar;
+Im_hilbert_scale=20*log10(abs(Im_hilbert));
+figure, imagesc(Im_hilbert_scale), colormap(gray), title('Hilbert scaled'), colorbar;
+[transverse,header_T]=RPread_WL('zachTransverse.b8');
+figure, imagesc(x_B,y_B,transverse(:,:,50)), colormap(gray), title('Transverse Plane'), xlabel('(mm)'), ylabel('(mm)'),colorbar, axis equal;
