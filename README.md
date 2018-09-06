@@ -1,14 +1,5 @@
 # Volume Measurement by Ultrasound
 
-
-
-
-
-
-
-
-# Volume Measurement by Ultrasound
-
 The clinical significance of measuring the volume of left ventricle is that this can be used in the assessment of coronary artery diseases with infraction, vavular heart diseases and left ventricular hypertrophy.
 
 
