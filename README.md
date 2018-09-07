@@ -30,7 +30,7 @@ The ground truth volume is derived from
 the mold design from Sketchup, given as
 2749.963mm 3 .
 
-![groud truth]()
+![groud truth](https://github.com/bijiuni/volume_measure/blob/master/ground_truth.png)
 
 Assuming the phantom as a half ellipsoid,
 volume=4/3*pi*abc/2; Area of ellipse=pi*ab
