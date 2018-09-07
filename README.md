@@ -2,46 +2,44 @@
 
 The clinical significance of measuring the volume of left ventricle is that this can be used in the assessment of coronary artery diseases with infraction, vavular heart diseases and left ventricular hypertrophy.
 
+In this project, we mainly used ultrasound to do volume measurement of a heart phantom that we 3D printed. The [ultrasound demo](https://github.com/bijiuni/volume_measure/blob/master/ultrasound%20demo.avi) is shown is a video.
+
+You can find the 3D phantom we created in SolidWorks [here](https://github.com/bijiuni/volume_measure/tree/master/phantom).
+
 
 ## Running the tests
+[resolution](https://github.com/bijiuni/volume_measure/blob/master/resolution.m)
 
-Seven parts of the program with sample code:
+Read the images using MATLAB. In the MATLAB environment, select one ultrasound image to
+calculate its pixel resolution.
 
-1. The program load the data
-2. Plot the rawdata for comparison
-3. Extract baseline and filter the raw data
+Since all images have pixels dimension (y*x)
+=356*488 (appendix 1.3) and an actual depth of
+45mm, the resolution is given as 45/356 = 0.126mm.
 
-```
-baseline = sgolayfilt(Rawdata,4,2301);
-filtered = Rawdata - baseline;
-```
+[hilbert](https://github.com/bijiuni/volume_measure/blob/master/hilbert.m)
 
-4. Plot filtered signal and its envelope
-5. Find the max and min of the envelop
+In medical imaging, the signal
+amplitude is displayed. In ultrasound imaging, the imaging mode that displays the ultrasound
+signal amplitude is called B-mode, where B stands for brightness. Retrieve and
+display the brightness of the Hilbert-transformed data
 
-```
-[maxv, maxi] = max(diffe);
-hold on
-plot(maxi,maxv, 'o');
-diffe(1:maxi) = 500;
-[minv, mini] = min(diffe);
-hold on
-```
+[volume](https://github.com/bijiuni/volume_measure/blob/master/volume.m)
 
-6. Find where the maximal oscillation occurs
+The ground truth volume is derived from
+the mold design from Sketchup, given as
+2749.963mm 3 .
 
-```
-for i = 1:length(Rawdata)
-temp = filtered(i);
-if(temp>max && abs(prior-temp)<0.5)
-max = temp;
-index = i;
-end
-prior = temp;
-end
-```
+![groud truth]()
 
-7. Print out SP and DP with assumed ratios
+Assuming the phantom as a half ellipsoid,
+volume=4/3*pi*abc/2; Area of ellipse=pi*ab
+Volume=4/3*pi*abc/2 = 4/3 *c *area/2
+=1762.242793mm 3
+The result is smaller than the ground truth with an
+error of -35.9%. Boundary tracing using matlab is
+also tried instead of using imageJ. However a clear
+boundary cannot be determined.
 
 
 ## Clinical Measurement
